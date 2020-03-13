@@ -125,12 +125,13 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
+
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
-};
+  return {color: "#ff1000"};
+};''
 
 var showResults = function() {
   /* =====================
@@ -159,6 +160,8 @@ var eachFeatureFunction = function(layer) {
 };
 
 var myFilter = function(feature) {
+
+
   return true;
 };
 
