@@ -183,6 +183,8 @@ var eachFeatureFunction = function(layer) {
   });
 };
 
+
+
 /*
 var myFilter = function(feature) {
   return true;
