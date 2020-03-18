@@ -13,7 +13,7 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
 
 
 
-var dataset = "https://raw.githubusercontent.com/leonardoharth/MUSA611-CPLN692-week7/master/assignment/data/crime_df_for_midterm_2.GeoJSON";
+var dataset = "https://raw.githubusercontent.com/leonardoharth/MUSA611-CPLN692-week7/master/assignment/data/Litter_Index_Blocks.geojson";
 
 
 
