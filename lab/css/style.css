@@ -29,6 +29,29 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
+  right: 35px;
+  bottom: 35px;
   z-index: 2000;
+  padding: 15px;
+  background-color: #ffffff;
+}
+
+#mon {
+  background-color: #d53e4f;
+}
+
+#tue {
+  background-color: #fc8d59;
+}
+
+#wed {
+  background-color: #fee08b;
+}
+
+#thu {
+  background-color: #ffffbf;
+}
+
+#fri {
+  background-color: #e6f598;
 }

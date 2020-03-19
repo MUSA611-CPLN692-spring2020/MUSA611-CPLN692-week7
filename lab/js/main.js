@@ -125,11 +125,27 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  if (feature.properties.COLLDAY === "MON") {
+    return {color: '#d53e4f'};
+  } else if (feature.properties.COLLDAY === "TUE") {
+    return {color: '#fc8d59'};
+  } else if (feature.properties.COLLDAY === "WED") {
+    return {color: '#fee08b'};
+  } else if (feature.properties.COLLDAY === "THU") {
+    return {color: '#ffffbf'};
+  } else if (feature.properties.COLLDAY === "FRI") {
+    return {color: '#e6f598'};
+  } else if (feature.properties.COLLDAY === "SAT") {
+    return {color: '#99d594'};
+  } else if (feature.properties.COLLDAY === "SUN") {
+    return {color: '#3288bd'};
+  } else {
+    return {color: '#000000'};
+  };
 };
 
 var showResults = function() {
@@ -154,12 +170,26 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
+    if (layer.feature.properties.COLLDAY === "MON") {
+      $('.day-of-week').text('Monday');
+    } else if (layer.feature.properties.COLLDAY === "TUE") {
+      $('.day-of-week').text('Tuesday');
+    } else if (layer.feature.properties.COLLDAY === "WED") {
+      $('.day-of-week').text('Wednesday');
+    } else if (layer.feature.properties.COLLDAY === "THU") {
+      $('.day-of-week').text('Thursday');
+    } else if (layer.feature.properties.COLLDAY === "FRI") {
+      $('.day-of-week').text('Friday');}
     showResults();
   });
 };
 
 var myFilter = function(feature) {
+  if (feature.properties.COLLDAY === "MON" || feature.properties.COLLDAY === "TUE" || feature.properties.COLLDAY === "WED" || feature.properties.COLLDAY === "THU" || feature.properties.COLLDAY === "FRI") {
   return true;
+} else {
+    return false;
+  }
 };
 
 $(document).ready(function() {
@@ -174,3 +204,36 @@ $(document).ready(function() {
     featureGroup.eachLayer(eachFeatureFunction);
   });
 });
+
+// legend
+/*
+function getColor(d) {
+    return d === "SUN" ? '#000000' :
+           d === "MON" ? '#d53e4f' :
+           d === "TUE" '#fc8d59' :
+           d === "WED" '#fee08b' :
+           d === "THU" '#ffffbf' :
+           d === "FRI" '#e6f598' :
+                      '#FFEDA0';
+}
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["MON", "TUE", "WED", "THU", "FRI"],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+*/
