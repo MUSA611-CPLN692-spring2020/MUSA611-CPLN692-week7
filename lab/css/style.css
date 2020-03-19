@@ -29,14 +29,29 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
+  right: 35px;
+  bottom: 35px;
   z-index: 2000;
+  padding: 15px;
+  background-color: #ffffff;
 }
 
-.legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin-right: 8px;
-    opacity: 0.7;
+#mon {
+  background-color: #d53e4f;
+}
+
+#tue {
+  background-color: #fc8d59;
+}
+
+#wed {
+  background-color: #fee08b;
+}
+
+#thu {
+  background-color: #ffffbf;
+}
+
+#fri {
+  background-color: #e6f598;
 }
