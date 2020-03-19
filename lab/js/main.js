@@ -21,7 +21,7 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
 
 Load the dataset into our application. Set the 'dataset' variable to the address for
 'philadelphia-garbage-collection-boundaries.geojson' in the class dataset repository
-https://raw.githubusercontent.com/CPLN-692-401/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson
+https://raw.githubusercontent .com/CPLN-692-401/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson
 
 You should now have GeoJSON data projected onto your map!
 
@@ -125,11 +125,22 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
-var featureGroup;
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 
 var myStyle = function(feature) {
-  return {};
+  if (feature.properties['COLLDAY'] =='MON'){
+    return {fillColor: 'red'};
+  }else if (feature.properties['COLLDAY'] =='TUE'){
+    return {fillColor: 'cyan'};
+  }else if (feature.properties['COLLDAY'] =='WED'){
+    return {fillColor: 'green'};
+  }else if (feature.properties['COLLDAY'] =='THU'){
+    return {fillColor: 'purple'};
+  }else if (feature.properties['COLLDAY'] =='FRI'){
+    return {fillColor: 'orange'};
+  }else{
+    return {color: 'black',fillOpacity: 1.0}
+  }
 };
 
 var showResults = function() {
@@ -153,13 +164,31 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
-    console.log(layer.feature);
+    // if using class, refer to it by a dot. if using id, refer using pound sign
+  
+    var day = layer.feature.properties['COLLDAY']
+    if(day=="MON"){
+      $('.Day-Of-Week').text('Monday');
+    }else if(day=="TUE"){
+      $('.Day-Of-Week').text('Tuesday');
+    }else if(day=="WED"){
+      $('.Day-Of-Week').text('Wednesday');
+    }else if(day=="THU"){
+      $('.Day-Of-Week').text('Thursday');
+    }else if(day=="FRI"){
+      $('.Day-Of-Week').text('Friday');
+    }
     showResults();
   });
 };
 
 var myFilter = function(feature) {
+  var days = ["MON", "TUE", "WED", "THU", "FRI"];
+  if (days.includes(feature.properties['COLLDAY'])){
   return true;
+  }else{
+    return false;
+  }
 };
 
 $(document).ready(function() {
