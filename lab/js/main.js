@@ -125,12 +125,28 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
-};
+  if (feature.properties.COLLDAY=='MON'){
+    return{"fillColor": 'red'};
+  } else if (feature.properties.COLLDAY=='TUE'){
+    return{"fillColor": 'purple'};
+  } else if (feature.properties.COLLDAY=='WED'){
+    return{"fillColor": 'green'};
+  } else if (feature.properties.COLLDAY=='THU'){
+    return{"fillColor": 'black'};
+  } else if (feature.properties.COLLDAY=='FRI'){
+    return{"fillColor": 'yellow'};
+  } else if (feature.properties.COLLDAY=='SAT'){
+    return{"fillColor": 'brown'};
+  } else if (feature.properties.COLLDAY=='SUN'){
+    return{"fillColor": 'white'};
+  }
+    };
+
+
 
 var showResults = function() {
   /* =====================
@@ -147,7 +163,23 @@ var showResults = function() {
 
 
 var eachFeatureFunction = function(layer) {
-  layer.on('click', function (event) {
+  layer.on('click', function(event) {
+    if (layer.feature.properties.COLLDAY==='MON'){
+      layer.bindPopup("Monday");
+    } else if (layer.feature.properties.COLLDAY==='TUE'){
+      layer.bindPopup("Tuesday");
+    } else if (layer.feature.properties.COLLDAY==='WED'){
+      layer.bindPopup("Wednesday");
+    } else if (layer.feature.properties.COLLDAY==='THU'){
+      layer.bindPopup("Thursday");
+    }else if (layer.feature.properties.COLLDAY==='FRI'){
+      layer.bindPopup("Friday");
+    }else if (layer.feature.properties.COLLDAY==='SAT'){
+      layer.bindPopup("Saturday");
+    }else if (layer.feature.properties.COLLDAY==='SUN'){
+      layer.bindPopup("SUNDAY");
+    }
+    //layer.bindPopup(layer.feature.properties.COLLDAY);
     /* =====================
     The following code will run every time a layer on the map is clicked.
     Check out layer.feature to see some useful data about the layer that
@@ -158,13 +190,17 @@ var eachFeatureFunction = function(layer) {
   });
 };
 
-var myFilter = function(feature) {
-  return true;
+var myFilter = function(feature){
+  if(feature.properties.COLLDAY===''){
+    return false;
+  }else{return true;}
 };
+
 
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
     var parsedData = JSON.parse(data);
+    console.log(parsedData);
     featureGroup = L.geoJson(parsedData, {
       style: myStyle,
       filter: myFilter
