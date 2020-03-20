@@ -29,6 +29,14 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
+  right: 20px;
+  top: 20px;
   z-index: 2000;
+}
+
+#rec {
+  width: 30px;
+  height: 15px;
+  opacity: 0.3;
+  display:inline-block;
 }
