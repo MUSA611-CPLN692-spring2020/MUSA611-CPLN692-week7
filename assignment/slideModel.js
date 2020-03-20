@@ -7,11 +7,11 @@ Week 6 Assignment: Slide Model
  */
 var slideExample = {
   slideNumber: 1,
-  title: "My first slide",
-  filter: function(geojsonFeature) { return true }
+  title: "Global Case Count",
+  filter: function(geojsonFeature) { return true; }
 };
 
 /** Here's the simplest implementation I could come up with for
  * representing a deck of slides (nothing exotic is necessary!)
  */
-var slideDeck = [slideExample1, slideExample2, slideExample3]
+var slideDeck = [slideExample1, slideExample2, slideExample3, slideExample4, slideExample5];

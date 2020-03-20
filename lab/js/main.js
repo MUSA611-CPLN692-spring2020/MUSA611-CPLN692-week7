@@ -125,11 +125,25 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
+var bounds;
 
 var myStyle = function(feature) {
-  return {};
+  //console.log(feature.properties["COLLDAY"]);
+  if (feature.properties.COLLDAY=="MON") {
+    return {fillColor: 'red', weight: 3, color: 'white'};
+  } else if (feature.properties.COLLDAY=="TUE") {
+    return {fillColor: 'yellow', weight: 3, color: 'white'};
+  } else if (feature.properties.COLLDAY=="WED") {
+    return {fillColor: 'green', weight: 3, color: 'white'};
+  } else if (feature.properties.COLLDAY=="THU") {
+    return {fillColor: 'blue', weight: 3, color: 'white'};
+  } else if (feature.properties.COLLDAY=="FRI") {
+    return {fillColor: 'purple', weight: 3, color: 'white'};
+  } else {
+    return {weight: 3, color: 'white'};
+  }
 };
 
 var showResults = function() {
@@ -145,21 +159,41 @@ var showResults = function() {
   $('#results').show();
 };
 
+// function to return the app to original state
+var closeResults = function() {
+  $('#intro').show();
+  $('#results').hide();
+  map.fitBounds(featureGroup.getBounds());
+};
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
-    /* =====================
-    The following code will run every time a layer on the map is clicked.
-    Check out layer.feature to see some useful data about the layer that
-    you can use in your application.
-    ===================== */
-    console.log(layer.feature);
+    //console.log(layer.feature);
+    //console.log($(".day-of-week").text());
+    if (layer.feature.properties.COLLDAY == "MON") {
+      $(".day-of-week").text("Monday");
+    } else if (layer.feature.properties.COLLDAY == "TUE") {
+      $(".day-of-week").text("Tuesday");
+    } else if (layer.feature.properties.COLLDAY == "WED") {
+      $(".day-of-week").text("Wednesday");
+    } else if (layer.feature.properties.COLLDAY == "THU") {
+      $(".day-of-week").text("Thursday");
+    } else if (layer.feature.properties.COLLDAY == "FRI") {
+      $(".day-of-week").text("Friday");
+    }
     showResults();
+    //zoom in to the selected region
+    bounds = event.target.getBounds();
+    //console.log(event.target.getBounds());
+    map.fitBounds(bounds);
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  if (feature.properties.COLLDAY !== " ") {
+    //console.log(feature.properties);
+    return true;
+  }
 };
 
 $(document).ready(function() {
@@ -172,5 +206,22 @@ $(document).ready(function() {
 
     // quite similar to _.each
     featureGroup.eachLayer(eachFeatureFunction);
+
+    //see the frequencies of each collection day
+    colCounts = _.countBy(featureGroup._layers, function(layer) {
+      if (layer.feature.properties.COLLDAY == "MON") {
+        return "Monday";} else if (layer.feature.properties.COLLDAY == "TUE") {
+        return "Tuesday";} else if (layer.feature.properties.COLLDAY == "WED") {
+        return "Wednesday";} else if (layer.feature.properties.COLLDAY == "THU") {
+        return "Thursday";} else if (layer.feature.properties.COLLDAY == "FRI") {
+        return "Friday";}
+      });
+    $("#Mon").text(colCounts.Monday);
+    $("#Tue").text(colCounts.Tuesday);
+    $("#Wed").text(colCounts.Wednesday);
+    $("#Thu").text(colCounts.Thursday);
+    $("#Fri").text(colCounts.Friday);
   });
 });
+
+$("button").click(function() {closeResults();});
