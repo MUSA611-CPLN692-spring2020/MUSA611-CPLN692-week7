@@ -27,11 +27,66 @@ p.main {
     font-size: 16px;
 }
 
-.legend {
+
+.legend#legend1 {
   position: absolute;
-  width: 10%;
-  bottom: 0;
-  right: 10;
-  background-color: #fff;
+  width: 10px;
+  bottom: 35%;
+  right: 8%;
+  color: #660000;
+  z-index: 2000;
+}
+
+.legend#legend2 {
+  position: absolute;
+  width: 10px;
+  bottom: 30%;
+  right: 8%;
+  color: #994C00;
+  z-index: 2000;
+}
+
+.legend#legend3 {
+  position: absolute;
+  width: 10px;
+  bottom: 25%;
+  right: 8%;
+  color: #FF8000;
+  z-index: 2000;
+}
+
+.legend#legend4 {
+  position: absolute;
+  width: 10px;
+  bottom: 20%;
+  right: 8%;
+  color: #00994C
+  z-index: 2000;
+}
+
+.legend#legend5 {
+  position: absolute;
+  width: 10px;
+  bottom: 15%;
+  right: 8%;
+  color: #004C99;
+  z-index: 2000;
+}
+
+.legend#legend6 {
+  position: absolute;
+  width: 10px;
+  bottom: 10%;
+  right: 8%;
+  color: #CC0066;
+  z-index: 2000;
+}
+
+.legend#legend7 {
+  position: absolute;
+  width: 10px;
+  bottom: 5%;
+  right: 8%;
+  color: #0080FF;
   z-index: 2000;
 }
