@@ -95,5 +95,3 @@ about the work they do, we should try to apply some of that knowledge.
 In preparation for the midterm, mock out the design of your midterm's slides
 (only one figma screen should be necessary - remember, the point is to
 have a *rough* sketch).
-
-

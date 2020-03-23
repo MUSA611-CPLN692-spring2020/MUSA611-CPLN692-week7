@@ -125,11 +125,24 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+    if (feature.properties.COLLDAY == 'MON')
+      {return {fillColor: 'red'}}
+    if (feature.properties.COLLDAY == 'TUE')
+      {return {fillColor: 'orange'}}
+    if (feature.properties.COLLDAY == 'WED')
+      {return {fillColor: 'yellow'}}
+    if (feature.properties.COLLDAY == 'THU')
+      {return {fillColor: 'green'}}
+    if (feature.properties.COLLDAY == 'FRI')
+      {return {fillColor: 'blue'}}
+    if (feature.properties.COLLDAY == 'SAT')
+      {return {fillColor: 'purple'}}
+    if (feature.properties.COLLDAY == 'SUN')
+      {return {fillColor: 'pink'}}
 };
 
 var showResults = function() {
@@ -153,13 +166,22 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
+    if(layer.feature.properties.COLLDAY == "MON") {layer.feature.properties.DAY = "Monday"}
+    else if(layer.feature.properties.COLLDAY == "TUE") {layer.feature.properties.DAY = "Tuesday"}
+    else if(layer.feature.properties.COLLDAY == "WED") {layer.feature.properties.DAY = "Wednesday"}
+    else if(layer.feature.properties.COLLDAY == "THU") {layer.feature.properties.DAY = "Thursday"}
+    else if(layer.feature.properties.COLLDAY == "FRI") {layer.feature.properties.DAY = "Friday"}
+    else if(layer.feature.properties.COLLDAY == "SAT") {layer.feature.properties.DAY = "Saturday"}
+    else {layer.feature.properties.DAY == "Sunday"}
+
+    $('.day-of-week').text(layer.feature.properties.DAY)
     console.log(layer.feature);
     showResults();
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+    return feature.properties.COLLDAY !== ' '
 };
 
 $(document).ready(function() {
