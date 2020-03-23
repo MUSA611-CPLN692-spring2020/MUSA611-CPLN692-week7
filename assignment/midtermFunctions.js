@@ -16,7 +16,7 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 
 //This function parse the JSON data
 var parseData = function (x) {
-  return JSON.parse(x)
+  return JSON.parse(x);
 };
 
 //This function filter the trips taking place in morning peak hours
