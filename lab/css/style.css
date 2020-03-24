@@ -28,7 +28,45 @@ p.main {
 }
 
 .legend {
-  position: absolute;
-  background-color: #fff;
-  z-index: 2000;
+    position: absolute;
+    background-color: #fff;
+    z-index: 2000;
+    right: 10px;
+    padding: 10px;
 }
+
+.legend .legend-title {
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 90%;
+  }
+.legend .legend-scale ul {
+  margin: 0;
+  padding: 0;
+  float: left;
+  list-style: none;
+  }
+.legend .legend-scale ul li {
+  display: block;
+  float: left;
+  width: 50px;
+  margin-bottom: 6px;
+  text-align: center;
+  font-size: 80%;
+  list-style: none;
+  }
+.legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 15px;
+  width: 50px;
+  }
+.legend .legend-source {
+  font-size: 70%;
+  color: #999;
+  clear: both;
+  }
+.legend a {
+  color: #777;
+  }
