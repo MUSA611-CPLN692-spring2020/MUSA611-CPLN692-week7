@@ -123,13 +123,23 @@ Use Underscore to perform analysis on this GeoJSON data: which day of
 the week was the most common for garbage removal? Update the original state
 of the application to report this information.
 
+L.marker([lat, lng], { 'title':'my special title' })
+
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  var colors = {
+    "MON": "#0000ff",
+    "TUE": "#1ba307",
+    "WED": "#7207a3",
+    "THU": "#e1f50c",
+    "FRI": "#e69305"
+  };
+
+  return {color: colors[feature.properties.COLLDAY] || "#ff0000"};
 };
 
 var showResults = function() {
@@ -148,18 +158,30 @@ var showResults = function() {
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
-    /* =====================
-    The following code will run every time a layer on the map is clicked.
-    Check out layer.feature to see some useful data about the layer that
-    you can use in your application.
-    ===================== */
-    console.log(layer.feature);
+    var abbrDay = {
+      'MON': 'Monday',
+      'TUE': 'Tuesday',
+      'WED': 'Wednesday',
+      'THU': 'Thursday',
+      'FRI': 'Friday'
+    };
+    var dayOfWeek = abbrDay[layer.feature.properties.COLLDAY];
+
+    $('.day-of-week').text(dayOfWeek);
+
+    // $(".day-of-week")
+    // document.getElementById('#day-of-week') = trashDay;
+
     showResults();
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  if (_.isEmpty(feature.properties.COLLDAY.trim())) {
+    return false;
+  } else {
+      return true;
+  }
 };
 
 $(document).ready(function() {
