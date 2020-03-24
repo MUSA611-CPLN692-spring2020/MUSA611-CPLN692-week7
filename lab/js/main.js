@@ -6,6 +6,7 @@ var map = L.map('map', {
   center: [40.000, -75.1090],
   zoom: 11
 });
+
 var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   subdomains: 'abcd',
@@ -104,13 +105,13 @@ our HTML element. Try to use the `getLayerId` method of `L.FeatureGroup` and
 `L.LayerGroup` (on myFeatureGroup) below.
 With it, add the Leaflet ID to the information provided on the left.
 
-## Task 7 (Stretch Goal)
+## Task 7 (Stretch Goal) (DONE!)
 
 Use fitBounds (http://leafletjs.com/reference.html#map-fitbounds) to zoom in and
 center the map on one particular feature. To find the bounds for a feature, use
 event.target.getBounds() inside of the layer.on function.
 
-## Task 8 (Stretch Goal)
+## Task 8 (Stretch Goal) (DONE!)
 
 Add a "Close" or "X" button to the top right of your sidebar. When when the
 button is clicked, call a function closeResults that performs the opposite
@@ -161,6 +162,16 @@ var showResults = function() {
   $('#results').show();
 };
 
+// Define the close function
+var closeResults = function() {
+  $('#intro').show();
+  $('#results').hide();
+
+  // Zoom out to the original extent:
+  bounds=featureGroup.getBounds();
+  map.fitBounds(bounds);
+};
+
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function(event) {
@@ -187,8 +198,16 @@ var eachFeatureFunction = function(layer) {
     ===================== */
     console.log(layer.feature);
     showResults();
+
+    //Find the bounds
+  bounds=event.target.getBounds();
+  map.fitBounds(bounds);
   });
 };
+
+$('button').click(function(){
+  closeResults();
+});
 
 var myFilter = function(feature){
   if(feature.properties.COLLDAY===''){
@@ -205,8 +224,16 @@ $(document).ready(function() {
       style: myStyle,
       filter: myFilter
     }).addTo(map);
-
+    console.log(featureGroup);
     // quite similar to _.each
     featureGroup.eachLayer(eachFeatureFunction);
   });
 });
+
+/*
+Task 9 (Stretch Goal)
+
+Use Underscore to perform analysis on this GeoJSON data: which day of
+the week was the most common for garbage removal? Update the original state
+of the application to report this information.
+*/
