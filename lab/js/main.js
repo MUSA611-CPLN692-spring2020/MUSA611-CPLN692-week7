@@ -125,11 +125,19 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  switch (feature.properties.COLLDAY) {
+            case 'MON': return {color: "#ff0000"};
+            case 'TUE':   return {color: "#0000ff"};
+            case 'WED':   return {color: "#83D3CF"};
+            case 'THU':   return {color: "#C7D383"};
+            case 'FRI':   return {color: "#8390D3"};
+            case 'SAT':   return {color: "#D383D2"};
+            case 'SUN':   return {color: "#145051"};
+        }
 };
 
 var showResults = function() {
@@ -153,12 +161,22 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
+    if (layer.feature.properties.COLLDAY === "MON"){layer.feature.properties.day="Monday"}
+    else if (layer.feature.properties.COLLDAY === "TUE"){layer.feature.properties.day="Tuesday"}
+    else if (layer.feature.properties.COLLDAY === "WED"){layer.feature.properties.day="Wednesday"}
+    else if (layer.feature.properties.COLLDAY === "THU"){layer.feature.properties.day="Thursday"}
+    else if (layer.feature.properties.COLLDAY === "FRI"){layer.feature.properties.day="Friday"}
+    else if (layer.feature.properties.COLLDAY === "SAT"){layer.feature.properties.day="Saturday"}
+    else if (layer.feature.properties.COLLDAY === "SUN"){layer.feature.properties.day="Sunday"}
+    $("h1.day-of-week").text(layer.feature.properties.day)
+    $("span.day-of-week").text(layer.feature.properties.day)
     console.log(layer.feature);
     showResults();
   });
 };
 
 var myFilter = function(feature) {
+  if(feature.properties.COLLDAY !== " ")
   return true;
 };
 
