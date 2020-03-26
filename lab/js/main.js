@@ -6,6 +6,7 @@ var map = L.map('map', {
   center: [40.000, -75.1090],
   zoom: 11
 });
+
 var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   subdomains: 'abcd',
@@ -104,13 +105,13 @@ our HTML element. Try to use the `getLayerId` method of `L.FeatureGroup` and
 `L.LayerGroup` (on myFeatureGroup) below.
 With it, add the Leaflet ID to the information provided on the left.
 
-## Task 7 (Stretch Goal)
+## Task 7 (Stretch Goal) (DONE!)
 
 Use fitBounds (http://leafletjs.com/reference.html#map-fitbounds) to zoom in and
 center the map on one particular feature. To find the bounds for a feature, use
 event.target.getBounds() inside of the layer.on function.
 
-## Task 8 (Stretch Goal)
+## Task 8 (Stretch Goal) (DONE!)
 
 Add a "Close" or "X" button to the top right of your sidebar. When when the
 button is clicked, call a function closeResults that performs the opposite
@@ -125,12 +126,28 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
-};
+  if (feature.properties.COLLDAY=='MON'){
+    return{"fillColor": 'red'};
+  } else if (feature.properties.COLLDAY=='TUE'){
+    return{"fillColor": 'purple'};
+  } else if (feature.properties.COLLDAY=='WED'){
+    return{"fillColor": 'green'};
+  } else if (feature.properties.COLLDAY=='THU'){
+    return{"fillColor": 'black'};
+  } else if (feature.properties.COLLDAY=='FRI'){
+    return{"fillColor": 'yellow'};
+  } else if (feature.properties.COLLDAY=='SAT'){
+    return{"fillColor": 'brown'};
+  } else if (feature.properties.COLLDAY=='SUN'){
+    return{"fillColor": 'white'};
+  }
+    };
+
+
 
 var showResults = function() {
   /* =====================
@@ -145,9 +162,35 @@ var showResults = function() {
   $('#results').show();
 };
 
+// Define the close function
+var closeResults = function() {
+  $('#intro').show();
+  $('#results').hide();
+
+  // Zoom out to the original extent:
+  bounds=featureGroup.getBounds();
+  map.fitBounds(bounds);
+};
+
 
 var eachFeatureFunction = function(layer) {
-  layer.on('click', function (event) {
+  layer.on('click', function(event) {
+    if (layer.feature.properties.COLLDAY==='MON'){
+      layer.bindPopup("Monday");
+    } else if (layer.feature.properties.COLLDAY==='TUE'){
+      layer.bindPopup("Tuesday");
+    } else if (layer.feature.properties.COLLDAY==='WED'){
+      layer.bindPopup("Wednesday");
+    } else if (layer.feature.properties.COLLDAY==='THU'){
+      layer.bindPopup("Thursday");
+    }else if (layer.feature.properties.COLLDAY==='FRI'){
+      layer.bindPopup("Friday");
+    }else if (layer.feature.properties.COLLDAY==='SAT'){
+      layer.bindPopup("Saturday");
+    }else if (layer.feature.properties.COLLDAY==='SUN'){
+      layer.bindPopup("SUNDAY");
+    }
+    //layer.bindPopup(layer.feature.properties.COLLDAY);
     /* =====================
     The following code will run every time a layer on the map is clicked.
     Check out layer.feature to see some useful data about the layer that
@@ -155,22 +198,42 @@ var eachFeatureFunction = function(layer) {
     ===================== */
     console.log(layer.feature);
     showResults();
+
+    //Find the bounds
+  bounds=event.target.getBounds();
+  map.fitBounds(bounds);
   });
 };
 
-var myFilter = function(feature) {
-  return true;
+$('button').click(function(){
+  closeResults();
+});
+
+var myFilter = function(feature){
+  if(feature.properties.COLLDAY===''){
+    return false;
+  }else{return true;}
 };
+
 
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
     var parsedData = JSON.parse(data);
+    console.log(parsedData);
     featureGroup = L.geoJson(parsedData, {
       style: myStyle,
       filter: myFilter
     }).addTo(map);
-
+    console.log(featureGroup);
     // quite similar to _.each
     featureGroup.eachLayer(eachFeatureFunction);
   });
 });
+
+/*
+Task 9 (Stretch Goal)
+
+Use Underscore to perform analysis on this GeoJSON data: which day of
+the week was the most common for garbage removal? Update the original state
+of the application to report this information.
+*/
