@@ -125,11 +125,27 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
+
+
 var myStyle = function(feature) {
-  return {};
+  if (feature.properties.COLLDAY == "MON"){
+    return {color: "#285059",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "TUE"){
+    return {color: "#30BF97",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "WED"){
+    return {color: "#F2AE30",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "THU"){
+    return {color: "#D97B29",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "FRI"){
+    return {color: "#D93636",weight: 1.5};
+  }
 };
 
 var showResults = function() {
@@ -154,12 +170,32 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
+    var collday = layer.feature.properties.COLLDAY;
+    var plot_day;
+    if(collday == "MON"){
+      plot_day = "Monday";
+    }else if(collday == "TUE"){
+      plot_day = "Tuesday";
+    }else if(collday == "WED"){
+      plot_day = "Wednesday";
+    }else if(collday == "THU"){
+      plot_day = "Thursday";
+    }else if(collday == "FRI"){
+      plot_day = "Friday";
+    }else {
+      plot_day = "Weekends or NA";
+      };
+
+    $(".day-of-week").text(plot_day);
     showResults();
   });
 };
 
+
 var myFilter = function(feature) {
-  return true;
+  if (feature.properties.COLLDAY != 0){
+    return true;
+  } else{return false;}
 };
 
 $(document).ready(function() {
