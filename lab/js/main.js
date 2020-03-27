@@ -125,11 +125,17 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+   switch (feature.properties.COLLDAY){
+     case 'MON': return {color:"#ff0000"};
+     case 'TUE': return {color:"#00ff00"};
+     case 'WED': return {color:"#0000ff"};
+     case 'THU': return {color:"#5b0aa8"};
+     case 'FRI': return {color:"#996666"};
+   }
 };
 
 var showResults = function() {
@@ -148,19 +154,48 @@ var showResults = function() {
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
+  //  layer.bindPopup(feature.properties.COLLDAY);
     /* =====================
     The following code will run every time a layer on the map is clicked.
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
     console.log(layer.feature);
+    //$(".day-of-week").text(layer.feature.properties.COLLDAY)
+
+    /*======================
+        try if and elseif
+    if(layer.feature.properties.COLLDAY=="MON"){
+      $(".day-of-week").text("Monday");
+    } else if (layer.feature.properties.COLLDAY=="TUE") {
+      $(".day-of-week").text("Tuesday");
+    } else if (layer.feature.properties.COLLDAY=="WED") {
+      $(".day-of-week").text("Wednesday");
+    } else if (layer.feature.properties.COLLDAY=="THU") {
+      $(".day-of-week").text("Thursday");
+    } else if (layer.feature.properties.COLLDAY=="FRI") {
+      $(".day-of-week").text("Friday");
+    }
+    ========================*/
+
+    switch (layer.feature.properties.COLLDAY){
+      case 'MON': $(".day-of-week").text("Monday");
+      case 'TUE': $(".day-of-week").text("Tuesday");
+      case 'WED': $(".day-of-week").text("Wednesday");
+      case 'THU': $(".day-of-week").text("Thursday");
+      case 'FRI': $(".day-of-week").text("Friday");
+    }
     showResults();
   });
 };
 
+
 var myFilter = function(feature) {
-  return true;
+  if (feature.properties.COLLDAY!==" "){return true}
+  else { return false;}
 };
+
+
 
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
