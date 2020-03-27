@@ -27,6 +27,22 @@ for a few potential sources)
 - Points, lines, and polygons are all fine
 - Data should be real stuff (don't create a dataset with fictional locations)
 
+PLAN: 
+Data: 
+<!-- - Recycling Bins in Singapore (12,000 points) (points) (paper, glass, etc) (KEEPS CRASHING)
+ -->
+- E-waste recycling
+- cash-for-trash collection
+- Lighting Recycling 
+
+Properties to filter by: 
+- Type of recycling: electronic, cash for trash or lighting
+- description 
+- address street name 
+
+Filter by address street name, color by the type of recycling 
+
+
 
 ### Task 2: Think About Slide Data
 
@@ -95,5 +111,7 @@ about the work they do, we should try to apply some of that knowledge.
 In preparation for the midterm, mock out the design of your midterm's slides
 (only one figma screen should be necessary - remember, the point is to
 have a *rough* sketch).
+
+Link to mockup: https://www.figma.com/file/HKntxeaV157WC4tpA02J7r/MUSA611-Midterm?node-id=15%3A1
 
 
