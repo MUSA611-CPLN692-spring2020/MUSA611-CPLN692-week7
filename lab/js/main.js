@@ -14,6 +14,26 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
   ext: 'png'
 }).addTo(map);
 
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = ["MON", "TUE", "WED", "THU", "FRI"],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i]) + '"></i> ' +
+            grades[i] + '<br>';
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
 
 /* =====================
 
@@ -125,12 +145,8 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
-
-var myStyle = function(feature) {
-  return {};
-};
 
 var showResults = function() {
   /* =====================
@@ -145,29 +161,55 @@ var showResults = function() {
   $('#results').show();
 };
 
+function getColor(d) {
+    return d == "MON" ? '#EDE939' :
+           d == "TUE" ? '#407EC9' :
+           d == "WED" ? '#DC4405' :
+           d == "THU" ? '#4C8D2B' :
+           d == "FRI" ? '#76232F' :
+                      '#D7D2CB';
+}
+
+function myStyle(feature) {
+    return {
+        fillColor: getColor(feature.properties.COLLDAY),
+        weight: 1,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+var days = {
+  MON: "Monday",
+  TUE: "Tuesday",
+  WED: "Wednesday",
+  THU: "Thursday",
+  FRI: "Friday"
+};
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
-    /* =====================
-    The following code will run every time a layer on the map is clicked.
-    Check out layer.feature to see some useful data about the layer that
-    you can use in your application.
-    ===================== */
-    console.log(layer.feature);
+    $('.day-of-week').text(days[layer.feature.properties.COLLDAY]);
+    console.log(layer.feature.COLLDAY);
     showResults();
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  return feature.properties.COLLDAY !== " ";
 };
 
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
-    var parsedData = JSON.parse(data);
+    parsedData = JSON.parse(data);
+    console.log(parsedData);
+
     featureGroup = L.geoJson(parsedData, {
       style: myStyle,
-      filter: myFilter
+      filter: myFilter,
+    //  onEachFeature: eachFeatureFunction
     }).addTo(map);
 
     // quite similar to _.each
