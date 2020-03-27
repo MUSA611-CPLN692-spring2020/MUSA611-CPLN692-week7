@@ -27,8 +27,36 @@ p.main {
     font-size: 16px;
 }
 
-.legend {
+
+.legend .legend-title {
   position: absolute;
   background-color: #fff;
+  right: 50px;
+  bottom: 200px;
   z-index: 2000;
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 90%;
+}
+.legend .legend-scale ul {
+  position: absolute;
+  background-color: #fff;
+  right: 50px;
+  bottom: 100px;
+  z-index: 2000;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+}
+.legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 16px;
+  width: 30px;
+  margin-right: 5px;
+  margin-left: 0;
+  border: 1px solid #999;
 }
