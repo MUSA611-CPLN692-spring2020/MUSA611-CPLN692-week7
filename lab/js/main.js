@@ -124,14 +124,40 @@ the week was the most common for garbage removal? Update the original state
 of the application to report this information.
 
 ===================== */
-
-var dataset = ""
+//Task 1 Load the dataset
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
+//Task 2 Choropleth map
 var myStyle = function(feature) {
-  return {};
+  /*
+  if(feature.properties.COLLDAY=="Mon")
+  return {color:'#800026'};
+  else if(feature.properties.COLLDAY=="TUE")
+  return {color:'#BD0026'};
+  */
+  switch (feature.properties.COLLDAY) {
+      case "MON": return {color: '#800026'};
+      case "TUE": return {color: '#BD0026'};
+      case "WED": return {color: '#E31A1C'};
+      case "THU": return {color: '#FC4E2A'};
+      case "FRI": return {color: '#FD8D3C'};
+      case "SAT": return {color: '#FEB24C'};
+      case "SUN": return {color: '#FED976'};
+  }
 };
 
+// Task 3 Filter data
+var myFilter = function(feature) {
+  if(feature.properties.COLLDAY==" "){
+    return false;
+  }
+  else{
+    return true;
+  }
+};
+
+//Task 4 Click to show information
 var showResults = function() {
   /* =====================
   This function uses some jQuery methods that may be new. $(element).hide()
@@ -145,7 +171,6 @@ var showResults = function() {
   $('#results').show();
 };
 
-
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
     /* =====================
@@ -153,13 +178,26 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
-    console.log(layer.feature);
+    console.log(layer.feature.properties.COLLDAY)
+    switch (layer.feature.properties.COLLDAY) {
+        case "MON": $('.day-of-week').text("Monday");
+        break;
+        case "TUE": $('.day-of-week').text("Tuesday");
+        break;
+        case "WED": $('.day-of-week').text("Wednesday");
+        break;
+        case "THU": $('.day-of-week').text("Thursday");
+        break;
+        case "FRI": $('.day-of-week').text("Friday");
+        break;
+        case "SAT": $('.day-of-week').text("Saturday");
+        break;
+        case "SUN": $('.day-of-week').text("Sunday");
+        break;
+        default:$('.day-of-week').text("Not Identified")
+      }
     showResults();
   });
-};
-
-var myFilter = function(feature) {
-  return true;
 };
 
 $(document).ready(function() {
