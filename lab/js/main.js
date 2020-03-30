@@ -125,11 +125,23 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
+
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  switch (feature.properties.COLLDAY) {
+    case 'MON':return {color: "#ff1000"};
+      break;
+    case 'TUE':return {color: "#feb236"};
+      break;
+    case 'WED':return {color: "#405d27"};
+      break;
+    case 'THU':return {color: "#50394c"};
+      break;
+    case 'FRI':return {color: "#4040a1"};
+      break;
+}
 };
 
 var showResults = function() {
@@ -153,12 +165,27 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
-    console.log(layer.feature);
+    if (layer.feature.properties.COLLDAY == 'MON'){
+    $(".day-of-week").text("Monday");
+    }
+    else if (layer.feature.properties.COLLDAY == 'TUE'){
+    $('.day-of-week').text('Tuesday');
+    }
+    else if (layer.feature.properties.COLLDAY == 'WED'){
+    $('.day-of-week').text('Wednesday');
+    }
+    else if (layer.feature.properties.COLLDAY == 'THU'){
+    $('.day-of-week').text('Thursday');
+    }
+    else if (layer.feature.properties.COLLDAY == 'FRI'){
+    $('.day-of-week').text('Friday');
+    }
     showResults();
   });
 };
 
 var myFilter = function(feature) {
+    if(feature.properties.COLLDAY != '')
   return true;
 };
 
