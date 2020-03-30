@@ -30,5 +30,19 @@ p.main {
 .legend {
   position: absolute;
   background-color: #fff;
+  right: 100px;
+  width: 200px;
+  top: 100px;
+  bottom: 400px;
   z-index: 2000;
+}
+
+
+.legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 16px;
+  width: 30px;
+  margin-right: 5px;
+  margin-left: 0;
 }
