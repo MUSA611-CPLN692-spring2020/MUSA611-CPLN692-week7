@@ -130,8 +130,23 @@ var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/data
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {color: "#ff1000"};
-};''
+  switch (feature.properties.COLLDAY) {
+    case 'MON':return {color: "#ff1000"};
+      break;
+    case 'TUE':return {color: "#ff1001"};
+      break;
+    case 'WED':return {color: "#ff1010"};
+      break;
+    case 'THUR':return {color: "#ff1003"};
+      break;
+    case 'FRI':return {color: "#ff1005"};
+      break;
+    case 'SAT':return {color: "#ff1007"};
+      break;
+    case 'SUN':return {color: "#ff1009"};
+      break;
+}
+};
 
 var showResults = function() {
   /* =====================
@@ -160,8 +175,7 @@ var eachFeatureFunction = function(layer) {
 };
 
 var myFilter = function(feature) {
-
-
+    if(feature.properties.COLLDAY != '')
   return true;
 };
 
