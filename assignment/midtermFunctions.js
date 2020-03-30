@@ -20,6 +20,7 @@ var parseData = function (x) {
 };
 
 //This function filter the trips taking place in morning peak hours
+/*
 var morning = function(list) {
   return _.filter(list, function(trip){ return trip.START_TIME > 7:00 & trip.START_TIME < 9:00; });
 }
@@ -33,11 +34,13 @@ var morning = function(list) {
 var morning = function(list) {
   return _.filter(list, function(trip){ return trip.TRIP_LENGTH > 1});
 }
+*/
 
 //This function make markers based on the origin of each trip
+
 var ori_Markers = function(list){
   return _.map(list, function (obj) {
-    return L.marker([obj.START_LAT, obj.START_LON]);
+    return L.circleMarker([obj.START_LAT, obj.START_LON], pathOpts);
 });
 };
 
