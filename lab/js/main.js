@@ -125,11 +125,28 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
 
+//task 2
 var myStyle = function(feature) {
-  return {};
+  switch (feature.properties.COLLDAY) {
+    case 'MON': return {color: '#660000'};
+    case 'TUE': return {color: '#994C00'};
+    case 'WED': return {color: '#FF8000'};
+    case 'THU': return {color: '#00994C'};
+    case 'FRI': return {color: '#004C99'};
+    case 'SAT': return {color: '#CC0066'};
+    case 'SUN': return {color: '#0080FF'};
+//      break;
+//      default:
+//  return {};
+  }
+};
+
+//task 3
+var myFilter = function(feature) {
+  return feature.properties.COLLDAY !== ' '
 };
 
 var showResults = function() {
@@ -145,7 +162,7 @@ var showResults = function() {
   $('#results').show();
 };
 
-
+//task 4
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
     /* =====================
@@ -153,15 +170,26 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
+    if (layer.feature.properties.COLLDAY === 'MON')(layer.feature.properties.COLLDAY2 = 'Monday');
+    else if (layer.feature.properties.COLLDAY === 'TUE')(layer.feature.properties.COLLDAY2 = 'Tuesday');
+    else if (layer.feature.properties.COLLDAY === 'WED')(layer.feature.properties.COLLDAY2 = 'Wednesday');
+    else if (layer.feature.properties.COLLDAY === 'THU')(layer.feature.properties.COLLDAY2 = 'Thursday');
+    else if (layer.feature.properties.COLLDAY === 'FRI')(layer.feature.properties.COLLDAY2 = 'Friday');
+    else if (layer.feature.properties.COLLDAY === 'SAT')(layer.feature.properties.COLLDAY2 = 'Saturday');
+    else if (layer.feature.properties.COLLDAY === 'SUN')(layer.feature.properties.COLLDAY2 = 'Sunday');
+    $('h1.day-of-week').text(layer.feature.properties.COLLDAY2);
     console.log(layer.feature);
     showResults();
   });
 };
 
+
+
+/*
 var myFilter = function(feature) {
   return true;
 };
-
+*/
 $(document).ready(function() {
   $.ajax(dataset).done(function(data) {
     var parsedData = JSON.parse(data);
@@ -174,3 +202,6 @@ $(document).ready(function() {
     featureGroup.eachLayer(eachFeatureFunction);
   });
 });
+
+
+//    <link rel="stylesheet" href="style.css">
