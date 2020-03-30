@@ -27,6 +27,7 @@ for a few potential sources)
 - Points, lines, and polygons are all fine
 - Data should be real stuff (don't create a dataset with fictional locations)
 
+Philadelphia solar installations
 
 ### Task 2: Think About Slide Data
 
@@ -39,6 +40,9 @@ How will you represent this data that is about the slides? In slideModel.js,
 write a brief example that shows what the data for one slide might look like.
 Think about how it will be stored and read in Javascript (arrays, objects, etc.).
 
+1. location (zipcode gathering)
+2. years built
+3. developer 
 
 ### Task 3: Write Function Signatures
 
@@ -95,5 +99,3 @@ about the work they do, we should try to apply some of that knowledge.
 In preparation for the midterm, mock out the design of your midterm's slides
 (only one figma screen should be necessary - remember, the point is to
 have a *rough* sketch).
-
-
