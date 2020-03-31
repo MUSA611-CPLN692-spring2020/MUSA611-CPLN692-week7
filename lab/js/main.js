@@ -125,26 +125,47 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+
+//Task 1 Load the dataset
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
+//Task 2 Choropleth map
 var myStyle = function(feature) {
-  return {};
+  if (feature.properties.COLLDAY == "MON"){
+    return {color: "#285059",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "TUE"){
+    return {color: "#30BF97",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "WED"){
+    return {color: "#F2AE30",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "THU"){
+    return {color: "#D97B29",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "FRI"){
+    return {color: "#D93636",weight: 1.5};
+  }
 };
 
+// Task 3 Filter data
+var myFilter = function(feature) {
+  if(feature.properties.COLLDAY==" "){
+    return false;
+  }
+  else{
+    return true;
+  }
+};
+
+//Task 4 Click to show information
 var showResults = function() {
-  /* =====================
-  This function uses some jQuery methods that may be new. $(element).hide()
-  will add the CSS "display: none" to the element, effectively removing it
-  from the page. $(element).show() removes "display: none" from an element,
-  returning it to the page. You don't need to change this part.
-  ===================== */
   // => <div id="intro" css="display: none">
   $('#intro').hide();
   // => <div id="results">
   $('#results').show();
 };
-
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
@@ -153,13 +174,26 @@ var eachFeatureFunction = function(layer) {
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
-    console.log(layer.feature);
+    console.log(layer.feature.properties.COLLDAY)
+    switch (layer.feature.properties.COLLDAY) {
+        case "MON": $('.day-of-week').text("Monday");
+        break;
+        case "TUE": $('.day-of-week').text("Tuesday");
+        break;
+        case "WED": $('.day-of-week').text("Wednesday");
+        break;
+        case "THU": $('.day-of-week').text("Thursday");
+        break;
+        case "FRI": $('.day-of-week').text("Friday");
+        break;
+        case "SAT": $('.day-of-week').text("Saturday");
+        break;
+        case "SUN": $('.day-of-week').text("Sunday");
+        break;
+        default:$('.day-of-week').text("Not Identified")
+      }
     showResults();
   });
-};
-
-var myFilter = function(feature) {
-  return true;
 };
 
 $(document).ready(function() {
