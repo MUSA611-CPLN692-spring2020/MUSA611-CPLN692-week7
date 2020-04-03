@@ -31,4 +31,5 @@ p.main {
   position: absolute;
   background-color: #fff;
   z-index: 2000;
+  right:20px;
 }
