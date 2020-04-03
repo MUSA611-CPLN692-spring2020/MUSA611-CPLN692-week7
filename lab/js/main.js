@@ -125,11 +125,25 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  if (feature.properties.COLLDAY == "MON"){
+    return {color: "#EE5A5A",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "TUE"){
+    return {color: "#F0EE7D",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "WED"){
+    return {color: "#ABF07D",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "THU"){
+    return {color: "#7DA8F0",weight: 1.5};
+  }
+  else if (feature.properties.COLLDAY == "FRI"){
+    return {color: "#F07DF0",weight: 1.5};
+  }
 };
 
 var showResults = function() {
@@ -154,12 +168,28 @@ var eachFeatureFunction = function(layer) {
     you can use in your application.
     ===================== */
     console.log(layer.feature);
-    showResults();
+    if (feature.properties.COLLDAY == "MON"){
+      return {color: "#EE5A5A",weight: 1.5};
+    }
+    else if (feature.properties.COLLDAY == "TUE"){
+      return {color: "#F0EE7D",weight: 1.5};
+    }
+    else if (feature.properties.COLLDAY == "WED"){
+      return {color: "#ABF07D",weight: 1.5};
+    }
+    else if (feature.properties.COLLDAY == "THU"){
+      return {color: "#7DA8F0",weight: 1.5};
+    }
+    else if (feature.properties.COLLDAY == "FRI"){
+      return {color: "#F07DF0",weight: 1.5};
+    }
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  if (feature.properties.COLLDAY != 0){
+    return true;
+  } else{return false;}
 };
 
 $(document).ready(function() {
