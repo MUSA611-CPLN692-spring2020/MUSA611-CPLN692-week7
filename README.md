@@ -23,7 +23,7 @@
 - Using github as a backend (storage)
 - Creating it with geojson.io
 
-## Homework Assignment (Due: Friday, March 16)
+## Homework Assignment (Due: Friday, March 20)
 - Complete [Lab](lab)
 - Complete [Assignment](assignment)
 
