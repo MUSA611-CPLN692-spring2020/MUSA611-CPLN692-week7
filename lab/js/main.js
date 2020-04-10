@@ -25,6 +25,14 @@ https://raw.githubusercontent.com/CPLN-692-401/datasets/master/geojson/philadelp
 
 You should now have GeoJSON data projected onto your map!
 
+*/
+
+
+
+
+
+
+/*
 ## Task 2 - our first choropleth map
 
 Style each garbage collection area with a different color depending on what day
@@ -125,12 +133,40 @@ of the application to report this information.
 
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson";
 var featureGroup;
 
-var myStyle = function(feature) {
-  return {};
+var myStyle = function(feature){
+
+if (feature.properties['COLLDAY']=='MON'){
+  return {fillColor: 'red'};
+}
+if (feature.properties['COLLDAY']=='TUE'){
+  return {fillColor: 'yellow'};
+}
+if (feature.properties['COLLDAY']=='WED'){
+  return {fillColor: 'blue'};
+}
+if (feature.properties['COLLDAY']=='THU'){
+  return {fillColor: 'purple'};
+}
+if (feature.properties['COLLDAY']=='FRI'){
+  return {fillColor: 'pink'};
+}
+if (feature.properties['COLLDAY']=='SAT'){
+  return {fillColor: 'orange'};
+}
+if (feature.properties['COLLDAY']=='SUN'){
+  return {fillColor: 'green'};
+}
+
+
+
+
 };
+
+
+
 
 var showResults = function() {
   /* =====================
@@ -140,6 +176,9 @@ var showResults = function() {
   returning it to the page. You don't need to change this part.
   ===================== */
   // => <div id="intro" css="display: none">
+
+
+
   $('#intro').hide();
   // => <div id="results">
   $('#results').show();
@@ -148,18 +187,29 @@ var showResults = function() {
 
 var eachFeatureFunction = function(layer) {
   layer.on('click', function (event) {
+console.log(layer);
+$('#s1').text(layer.feature.properties['COLLDAY']);
+
     /* =====================
     The following code will run every time a layer on the map is clicked.
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
-    console.log(layer.feature);
+
     showResults();
   });
 };
 
 var myFilter = function(feature) {
-  return true;
+  console.log(feature.properties);
+console.log(feature.properties['COLLDAY'].length);
+  if(feature.properties['COLLDAY'].length<2){
+    return false;
+  }
+  else {
+    return true
+  }
+
 };
 
 $(document).ready(function() {

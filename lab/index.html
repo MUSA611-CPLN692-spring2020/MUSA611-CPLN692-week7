@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+
   <head>
     <meta charset="utf-8">
     <!-- CSS Imports -->
@@ -21,10 +23,16 @@
       </div>
       <div id="results" style="display: none;">
         <h1 class="day-of-week">Day of Week</h1>
-        <p class="main">Your garbage collection day is <span class="day-of-week">
+        <p class="main">Your garbage collection day is <span class="day-of-week" id='s1'>
         Day of Week</span>.</p>
+
+
+
+
+
+
         <p>Please be sure to leave your garbage outside on <span class="day-of-week">
-        Day of Week</span>. If this week is a federal holiday, leave your
+        </span>. If this week is a federal holiday, leave your
         garbage outside on the following day.</p>
       </div>
     </div>
@@ -33,6 +41,72 @@
     <!-- Legend -->
     <div class="legend"></div>
     <!-- Javascript Imports -->
+
+    <div class='my-legend'>
+<div class='legend-title'>Days of Garbabge Collection</div>
+<div class='legend-scale'>
+  <ul class='legend-labels'>
+    <li><span style="background-color:red";></span>Mon</li>
+    <li><span style="background-color:yellow'";></span>Tue</li>
+    <li><span style="background-color:blue";></span>Wed</li>
+    <li><span style="background-color:purple";></span>Thur</li>
+    <li><span style="background-color:pink";></span>Fri</li>
+    <li><span style="background-color:orange";></span>Sat</li>
+    <li><span style="background-color:green";></span>Sun</li>
+  </ul>
+
+
+<style type='text/css'>
+  .my-legend .legend-title {
+    text-align: left;
+    margin-bottom: 450px;
+    font-weight: bold;
+    font-size: 60%;
+    }
+  .my-legend .legend-scale ul {
+    margin: 15px;
+    margin-bottom: 20px;
+    padding: 0;
+    float: left;
+    list-style: none;
+    }
+  .my-legend .legend-scale ul li {
+    font-size: 80%;
+    list-style: none;
+    margin-left: 0;
+    line-height: 18px;
+    margin-bottom: 2px;
+    }
+  .my-legend ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 14px;
+    width: 30px;
+    margin-right: 5px;
+    margin-left: 0;
+    border: 1px solid #999;
+    }
+  .my-legend .legend-source {
+    font-size: 70%;
+    color: #999;
+    clear: both;
+    }
+  .my-legend a {
+    color: #777;
+    }
+  .fieldset {
+    position:relative;
+    padding-top:50px;
+}
+
+legend {
+    position:absolute;
+    top:0px;
+    left:18px;
+}​
+</style>
+
+
     <script src="js/jquery-2.2.0.js"></script>
     <script src="js/underscore.js"></script>
     <script src="js/leaflet.js"></script>
